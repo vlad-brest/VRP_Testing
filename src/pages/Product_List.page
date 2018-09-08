@@ -1,0 +1,45 @@
+<apex:page controller="ProductList" lightningStylesheets="true">
+    <apex:slds />
+   <apex:pageBlock title="Product List">
+        <apex:pageBlockSection title="Products in stock" columns="1" collapsible="false">
+            <apex:pageMessages />
+            <apex:pageBlockTable styleClass="slds-table slds-table_bordered slds-table_cell-buffer"
+                                 value="{!wrappedProducts}"
+                                 var="wrappedProduct"
+                                 columnsWidth="15%,10%,20%,35%,10%" width="100%"
+                                 rendered="{!wrappedProducts.size > 0}">
+                <apex:column headerValue="Image">
+                    <apex:outputPanel rendered="{!!ISNULL(wrappedProduct.image)}">
+                        <apex:outputLink value="{!$Page.ProductDetailPage}?id={!wrappedProduct.product.Id}" >
+                            <img src="data:{!wrappedProduct.contentType};base64,{!wrappedProduct.image}"/>
+                        </apex:outputLink>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!ISNULL(wrappedProduct.image)}">
+                        <apex:outputText value="No Image"/>
+                    </apex:outputPanel>
+                </apex:column>
+                <apex:column value="{!wrappedProduct.product.Name}" styleClass="text-align: center;"/>
+                <apex:outputLink value="{!$Page.ProductDetailPage}?id={!wrappedProduct.product.Id}" > {!wrappedProduct.product.Name}
+                </apex:outputLink>
+
+                <apex:column value="{!wrappedProduct.product.Features__c}" style="white-space: pre-wrap;"/>
+
+                <apex:column >
+                    <apex:facet name="header">
+                        Description
+                    </apex:facet>
+                    <apex:outputPanel layout="block" style="white-space: pre-wrap;">
+                        <apex:outputText value="{!wrappedProduct.description}"/>
+                    </apex:outputPanel>
+                    <apex:outputLink value="{!$Page.ProductDetailPage}?id={!wrappedProduct.product.Id}" >  More  </apex:outputLink>
+                </apex:column>
+                <apex:column value="{!wrappedProduct.product.Unit_Price__c}"/>
+                <apex:column headerValue="Action">
+                    <button class="slds-button slds-button_brand">
+                        <apex:outputLink value="{!$Page.ProductDetailPage}?id={!wrappedProduct.product.Id}" >Buy</apex:outputLink>
+                    </button>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:page>
