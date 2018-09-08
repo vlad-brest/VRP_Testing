@@ -1,0 +1,26 @@
+<apex:page controller="OrderRegistration" tabStyle="Product_List__tab" lightningStylesheets="false">
+    <apex:form id="theForm">
+        <apex:pageBlock title="ORDER REGISTRATION">
+            <apex:pageMessages />
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!confirmOrder}" value="Confirm Order" reRender="theForm"/>
+                <apex:commandButton action="{!goBack}" value="Back to Product"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection columns="2" collapsible="false">
+                <apex:pageBlockSection title="Contact Information" columns="1" collapsible="false">
+                    <apex:inputField value="{!theContact.FirstName}" required="true"/>
+                    <apex:inputField value="{!theContact.LastName}"/>
+                    <apex:inputField value="{!theContact.Email}" required="true"/>
+                </apex:pageBlockSection>
+
+                <apex:pageBlockSection title="Product Information" columns="1" collapsible="false">
+                    <apex:outputField value="{!product.Name}"/>
+                    <apex:outputField value="{!product.Unit_Price__c}"/>
+                    <apex:inputField value="{!order.Units__c}"/>
+                    <apex:outputField value="{!order.Order_Amount__c}"/>
+                </apex:pageBlockSection>
+
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
