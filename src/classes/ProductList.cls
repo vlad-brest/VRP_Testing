@@ -1,9 +1,13 @@
 public with sharing class ProductList {
 
+    public static final String NO_PRODUCTS_FOUND_ERROR_MESSAGE = 'No products were found.';
+
     public List<ProductWrapper> wrappedProducts {get; set;}
 
     private Map<Id, List<Attachment>> productMap;
+    @TestVisible
     private List<Product_Table__c> products;
+    @TestVisible
     private List<Attachment> attachments;
     
     public ProductList() {
@@ -17,7 +21,7 @@ public with sharing class ProductList {
             wrapProducts();
         }
         else {
-            ApexPages.addMessage(new ApexPages.Message(ApexPages.SEVERITY.INFO, 'No products were found.'));
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.SEVERITY.INFO, NO_PRODUCTS_FOUND_ERROR_MESSAGE));
         }
     }
     
